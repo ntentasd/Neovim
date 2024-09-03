@@ -88,6 +88,43 @@ local plugins = {
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
-  }
+  },
+  {
+    'tpope/vim-dadbod',
+    'kristijanhusak/vim-dadbod-ui',
+    'kristijanhusak/vim-dadbod-completion',
+    lazy = false,
+  },
+  {
+    "folke/noice.nvim",
+    lazy = false,
+    config = function()
+      require("noice").setup({
+        -- add any options here
+        -- routes = {
+        --   {
+        --     view = "notify",
+        --     filter = { event = "msg_showmode" },
+        --   },
+        -- },
+        lsp = {
+          hover = { enabled = false },
+          signature = { enabled = false },
+        },
+        routes = {
+          view = "notify",
+          filter = { event = "msg_showmode" },
+        },
+      })
+    end,
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    }
+  },
 }
 return plugins
