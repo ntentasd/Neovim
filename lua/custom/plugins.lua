@@ -98,10 +98,6 @@ local plugins = {
     lazy = false,
   },
   {
-    'kristijanhusak/vim-dadbod-completion',
-    lazy = false,
-  },
-  {
     "folke/noice.nvim",
     lazy = false,
     config = function()
