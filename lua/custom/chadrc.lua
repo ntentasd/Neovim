@@ -11,7 +11,7 @@ set.ttimeout = true
 set.timeoutlen = 500
 set.ttimeoutlen = 10
 
-M.ui = { theme = 'catppuccin' }
+M.ui = { theme = 'tokyonight' }
 M.plugins = 'custom.plugins'
 M.mappings = require "custom.mappings"
 return M

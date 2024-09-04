@@ -128,5 +128,120 @@ local plugins = {
       "rcarriga/nvim-notify",
     }
   },
+  {
+    "nvim-neorg/neorg",
+    lazy = false,
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {},
+          ["core.concealer"] = {},
+          ["core.summary"] = {},
+          ["core.completion"] = {
+            config = {
+              engine = "nvim-cmp"
+            }
+          },
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~/notes",
+                devops = "~/notes/devops"
+              }
+            }
+          }
+        }
+      }
+    end
+  },
+  {
+    'numToStr/FTerm.nvim',
+    config = function()
+    local map = vim.api.nvim_set_keymap
+    local opts = { noremap = true, silent = true }
+    require 'FTerm'.setup({
+      blend = 5,
+      dimensions = {
+        height = 0.90,
+        width = 0.90,
+        x = 0.5,
+        y = 0.5
+      }
+    })
+    end
+  },
+  {
+    "folke/twilight.nvim",
+    lazy = false,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
+  {
+    "folke/zen-mode.nvim",
+    lazy = false,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      plugins = {
+        alacritty = {
+          enabled = true,
+          font = "14", -- font size
+        },
+      }
+    }
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    lazy = false,
+    branch = '0.1.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim'
+    }
+  },
+  {
+    'nvim-telescope/telescope-symbols.nvim',
+    lazy = false,
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    "folke/trouble.nvim",
+    lazy = false,
+    dependencies = "nvim-tree/nvim-web-devicons",
+    keys = {
+      {
+        "<leader>dd",
+        "<cmd>Trouble diagnostics toggle win.position=right<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+    },
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  },
+  {
+    "folke/todo-comments.nvim",
+    lazy = false,
+    dependencies = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  },
 }
 return plugins
