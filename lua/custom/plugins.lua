@@ -5,6 +5,8 @@ local plugins = {
       ensure_installed = {
         "rust-analyzer",
         "gopls",
+        "clangd",
+        "clang-format",
       },
     },
   },
@@ -65,7 +67,8 @@ local plugins = {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    ft = "go",
+    event = "VeryLazy",
+    -- ft = "go",
     opt = function()
       return require "custom.configs.null-ls"
     end,
