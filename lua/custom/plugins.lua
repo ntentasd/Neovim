@@ -7,6 +7,10 @@ local plugins = {
         "gopls",
         "clangd",
         "clang-format",
+        "codelldb",
+        "lua-language-server",
+        -- "sqls",
+        "sqlls"
       },
     },
   },
@@ -35,9 +39,28 @@ local plugins = {
   },
   {
     "mfussenegger/nvim-dap",
-    init = function ()
+    config = function (_, _)
       require("core.utils").load_mappings("dap")
     end
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function ()
+      local dap = require("dap")
+      local dapui = require("dapui")
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end,
   },
   {
     "dreamsofcode-io/nvim-dap-go",
@@ -64,6 +87,17 @@ local plugins = {
       table.insert(M.sources, {name = "crates"})
       return M
     end,
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    opts = {
+      handlers = {},
+    },
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -149,8 +183,8 @@ local plugins = {
           ["core.dirman"] = {
             config = {
               workspaces = {
-                notes = "~/notes",
-                devops = "~/notes/devops"
+                notes = "/home/tents/notes",
+                devops = "/home/tents/notes/devops"
               }
             }
           }
@@ -245,6 +279,26 @@ local plugins = {
         -- refer to the configuration section below
       }
     end
+  },
+  {
+    "epwalsh/obsidian.nvim",
+    lazy = true,
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      vim.opt.conceallevel = 2
+
+      require('obsidian').setup({
+        workspaces = {
+          {
+            name = "notes",
+            path = "~/notes",
+          }
+        },
+      })
+    end,
   },
 }
 return plugins

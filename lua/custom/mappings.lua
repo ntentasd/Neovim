@@ -16,6 +16,10 @@ M.dap = {
       "<cmd> DapToggleBreakpoint <CR>",
       "Toggle breakpoint"
     },
+    ["<leader>dr"] = {
+      "<cmd> DapContinue <CR>",
+      "Start or continue the debugger",
+    },
     ["<leader>dus"] = {
       function ()
         local widgets = require('dap.ui.widgets');
