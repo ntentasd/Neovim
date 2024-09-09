@@ -113,3 +113,60 @@ lspconfig.sqlls.setup {
   filetypes = { "sql", "mysql", "psql" },
   root_dir = lspconfig.util.find_git_ancestor,  -- or another suitable root detection
 }
+
+lspconfig.dockerls.setup {
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  cmd = { "docker-langserver", "--stdio" },
+  filetypes = { "dockerfile" },
+  root_dir = util.root_pattern("Dockerfile"),  -- or another suitable root detection
+  single_file_support = true,
+}
+
+lspconfig.docker_compose_language_service.setup {
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  cmd = { "docker-compose-langserver", "--stdio" },
+  filetypes = { "yaml.docker-compose" },
+  root_dir = util.root_pattern("docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml"),  -- or another suitable root detection
+  single_file_support = true,
+}
+
+lspconfig.helm_ls.setup {
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  cmd = { "helm_ls", "serve" },
+  filetypes = { "helm" },
+  root_dir = util.root_pattern("Chart.yaml"),
+  single_file_support = true,
+}

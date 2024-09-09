@@ -64,21 +64,21 @@ require("lspconfig").lua_ls.setup {
   },
 }
 
--- Add Ansible LSP configuration
-require("lspconfig").ansiblels.setup {
-  on_init = M.on_init,
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
-
-  cmd = { "ansible-language-server", "--stdio" },
-  filetypes = { "yaml" },
-  root_dir = require("lspconfig").util.root_pattern(".git", "ansible.cfg"),
-  settings = {
-    ansible = {
-      validation = true,
-      lint = true,
-    }
-  }
-}
+-- -- Add Ansible LSP configuration
+-- require("lspconfig").ansiblels.setup {
+--   on_init = M.on_init,
+--   on_attach = M.on_attach,
+--   capabilities = M.capabilities,
+--
+--   cmd = { "ansible-language-server", "--stdio" },
+--   filetypes = { "yaml" },
+--   root_dir = require("lspconfig").util.root_pattern(".git", "ansible.cfg"),
+--   settings = {
+--     ansible = {
+--       validation = true,
+--       lint = true,
+--     }
+--   }
+-- }
 
 return M

@@ -10,7 +10,9 @@ local plugins = {
         "codelldb",
         "lua-language-server",
         -- "sqls",
-        "sqlls"
+        "sqlls",
+        "dockerfile-language-server",
+        "docker-compose-language-service",
       },
     },
   },
