@@ -292,6 +292,16 @@ local plugins = {
     config = function()
       vim.opt.conceallevel = 2
 
+      local function is_wsl()
+        local f = io.open("/proc/version")
+        if f then
+          local content = f:read("*a")
+          f:close()
+          return content:match("WSL") ~= nil
+        end
+        return false
+      end
+
       require('obsidian').setup({
         workspaces = {
           {
@@ -299,6 +309,26 @@ local plugins = {
             path = "~/notes",
           }
         },
+        follow_url_func = function(url)
+          local os = vim.loop.os_uname().sysname
+          local wsl = is_wsl()
+
+          if wsl then
+            -- WSL
+            vim.cmd('silent !cmd.exe /C start "" ' .. vim.fn.shellescape(url))
+          elseif os == "Darwin" then
+            -- macOS
+            vim.fn.jobstart({"open", url})
+          elseif os == "Linux" then
+            -- Native Linux
+            vim.fn.jobstart({"xdg-open", url})
+          elseif os == "Windows_NT" then
+            -- Native Windows
+            vim.cmd('silent !start "" ' .. vim.fn.shellescape(url))
+          else
+            print("Unsupported OS: " .. os)
+          end
+        end,
       })
     end,
   },
