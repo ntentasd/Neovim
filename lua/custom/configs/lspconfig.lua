@@ -170,3 +170,21 @@ lspconfig.helm_ls.setup {
   root_dir = util.root_pattern("Chart.yaml"),
   single_file_support = true,
 }
+
+lspconfig.html.setup {
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  cmd = { "vscode-html-language-server", "--stdio" },
+  filetypes = { "html", "templ", "template" },
+  single_file_support = true,
+}
