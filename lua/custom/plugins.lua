@@ -8,6 +8,7 @@ local plugins = {
         "clangd",
         "clang-format",
         "codelldb",
+        "zls",
         "lua-language-server",
         -- "sqls",
         "sqlls",
