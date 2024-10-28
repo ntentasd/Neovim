@@ -16,6 +16,13 @@ if not vim.loop.fs_stat(lazypath) then
   require("core.bootstrap").lazy(lazypath)
 end
 
+vim.cmd [[
+  augroup terraform_filetype
+    autocmd!
+    autocmd BufRead,BufNewFile *.tf setlocal ft=terraform
+  augroup END
+]]
+
 dofile(vim.g.base46_cache .. "defaults")
 vim.opt.rtp:prepend(lazypath)
 vim.wo.relativenumber = true

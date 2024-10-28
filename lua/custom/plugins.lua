@@ -14,6 +14,8 @@ local plugins = {
         "sqlls",
         "dockerfile-language-server",
         "docker-compose-language-service",
+        "terraform-ls",
+        "yaml-language-server"
       },
     },
   },
